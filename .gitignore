@@ -1,0 +1,12 @@
+# Ignore virtual environments
+venv/
+env/
+
+# Ignore heavy model weights and checkpoints
+resume_parser_model/
+*.safetensors
+*.pt
+*.bin
+Dataset/
+# Ignore macOS junk
+.DS_Store
