@@ -18,7 +18,7 @@ The first module is a custom Named Entity Recognition (NER) model fine-tuned on 
 
 ### Step 1: Clone the Repository
 ```bash
-git clone [https://github.com/Yshubhware/Smart-Campus-Recruitment-System.git](https://github.com/shubhware/Smart-Campus-Recruitment-System.git)
+git clone https://github.com/shubhware/Smart-Campus-Recruitment-System.git
 cd Smart-Campus-Recruitment-System/Model1_Resume_Parser
 ```
 ### Step 2: Install Dependencies
@@ -26,11 +26,8 @@ cd Smart-Campus-Recruitment-System/Model1_Resume_Parser
 pip install -r requirements.txt
 ```
 ### Step 3: Download the Pre-Trained Model Weights
-    1. Download the weights here: https://drive.google.com/file/d/1yhSuiCwkQmNn56UR6bEDx6-BjzNoqnNC/view?usp=share_link
+1. Download the weights here: https://drive.google.com/file/d/1yhSuiCwkQmNn56UR6bEDx6-BjzNoqnNC/view?usp=share_link
+2. Extract the .zip file.
+3. Move the extracted resume_parser_model folder directly into the Model1_Resume_Parser/ directory.
 
-    2. Extract the .zip file.
-
-    3. Move the extracted resume_parser_model folder directly into the         Model1_Resume_Parser/ directory.
-
-    Your folder structure must look like this before running:
-    Model1_Resume_Parser/resume_parser_model/model.safetensors
+Your folder structure must look like this before running: Model1_Resume_Parser/resume_parser_model/model.safetensors
