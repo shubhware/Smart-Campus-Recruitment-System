@@ -8,7 +8,7 @@ resume_parser_model/
 *.pt
 *.bin
 Dataset/
-FINAL_resume_parser_model1/
+FINAL_resume_parser_model1
 
 # Ignore macOS junk
 .DS_Store
