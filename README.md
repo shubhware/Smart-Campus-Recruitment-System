@@ -3,7 +3,12 @@
 This repository contains the backend machine learning modules for an automated campus placement system. 
 
 ## Model 1: Resume Parser (BERT NER)
+
 The first module is a custom Named Entity Recognition (NER) model fine-tuned on `bert-base-uncased`. It extracts structured data (Skills, Degrees, Companies, Locations, etc.) from raw PDF resumes to be passed to downstream scoring models.
+
+### Datasets Used: 
+1. Kaggle => Resume Entities for NER by Dataturks (https://www.kaggle.com/datasets/dataturks/resume-entities-for-ner)
+2. Kaggle => Updated Resume Dataset by Jillani SofTech (https://www.kaggle.com/datasets/jillanisofttech/updated-resume-dataset)
 
 ### Performance
 * **F1 Score:** 0.5278
