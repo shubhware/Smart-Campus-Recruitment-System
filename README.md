@@ -7,13 +7,13 @@ An automated, AI-driven pipeline designed to streamline campus placements. This 
 ```text
 Smart-Campus-Recruitment-System/
 │
-├── model1_resume_parser/
+├── Model1_Resume_Parser/
 │   ├── resume_parser_model/     # (Downloaded externally due to size)
 │   ├── resume_parser.py         # Inference wrapper
 │   ├── requirements.txt         
 │   └── resume_parser_model1.ipynb 
 │
-├── model2_resume_scorer/
+├── Model2_Resume_Scorer/
 │   ├── resume_scorer_model/     # (Downloaded externally)
 │   ├── resume_scorer.py         # Inference wrapper
 │   ├── requirements.txt
@@ -96,11 +96,11 @@ Because the model artifacts contain large weight files (~400MB for BERT), they a
 
 ## For the Parser (Model 1):
 ```bash
-cd model1_resume_parser
+cd ../Model1_Resume_Parser
 pip install -r requirements.txt
 ```
 ## For the Scorer (Model 2):
 ```bash
-cd ../model2_resume_scorer
+cd ../Model2_Resume_Scorer
 pip install -r requirements.txt
 ```
