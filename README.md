@@ -87,19 +87,19 @@ Kaggle => LinkedIn Job Postings 2023-2024 (Filtered to 75.4k tech-focused roles)
 
 ## Architecture
 
-* # Stage 1 (Retrieval): 
+# Stage 1 (Retrieval): 
 Uses SentenceTransformer (all-MiniLM-L6-v2) to encode jobs and resumes into 384-dimensional space. Candidates are retrieved instantly using a FAISS (FlatIP) vector index.
 
-* # Stage 2 (Re-ranking): 
+# Stage 2 (Re-ranking): 
 A heavily optimized XGBoost & LightGBM ensemble re-ranks the top 100 candidates based on explicit rules to ensure perfect alignment.
 
-* # Feature Engineering (12 Dimensions):
+# Feature Engineering (12 Dimensions):
 Includes Semantic Similarity Score, Exact Skill Overlap, Skill Match Ratio, Experience Level Constraints (Entry/Senior/Internship), Location Matching, and Semantic Title Similarity.
 
-* # Performance (Test Set)
-* * **NDCG@10:** 0.9853
-* * **Precision@5:** 0.9818
-* * **MRR:** 1.0000
+# Performance (Test Set)
+* **NDCG@10:** 0.9853
+* **Precision@5:** 0.9818
+* **MRR:** 1.0000
 (Note: Achieves near-perfect ranking due to aggressive mathematical alignment on hard skills and experience levels).
 
 ## 🚀 How to Run Locally
