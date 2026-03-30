@@ -12,3 +12,9 @@ FINAL_resume_parser_model1/
 
 # Ignore macOS junk
 .DS_Store
+
+# Ignore large machine learning models and vector databases
+*.pkl
+*.index
+*.parquet
+FINAL_job_recommender_model3

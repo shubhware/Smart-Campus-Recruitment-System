@@ -1,6 +1,6 @@
 # 🎓 Smart Campus Recruitment System
 
-An automated, AI-driven pipeline designed to streamline campus placements. This system parses unstructured PDF resumes into structured data using Deep Learning (NER) and evaluates them against specific Job Descriptions using an ensemble of traditional Machine Learning algorithms to generate an actionable ATS (Applicant Tracking System) score.
+An automated, AI-driven pipeline designed to streamline campus placements. This system parses unstructured PDF resumes into structured data using Deep Learning (NER), evaluates them against specific Job Descriptions to generate an actionable ATS score, and uses vector-based similarity search to recommend the most highly-relevant real-world job postings for the candidate.
 
 ## 🏗️ Repository Structure
 
@@ -19,9 +19,16 @@ Smart-Campus-Recruitment-System/
 │   ├── requirements.txt
 │   └── resume_scorer_model2.ipynb 
 │
+├── Model3_Job_Recommender/
+│   ├── job_recommender_model/   # (Downloaded externally)
+│   ├── job_recommender.py       # Inference wrapper
+│   ├── requirements.txt
+│   └── job_recommender_model3.ipynb 
+│
 ├── .gitignore
 └── README.md
 ```
+
 ## Model 1: Resume Parser (BERT NER)
 
 The first module is a custom Named Entity Recognition (NER) model fine-tuned on `bert-base-uncased`. It extracts structured data (Skills, Degrees, Companies, Locations, etc.) from raw PDF resumes to be passed to downstream scoring models.
@@ -72,6 +79,26 @@ An overall ATS score (0-100), section-level scores, missing keywords, and an AI-
 
 ---
 
+## Model 3: Job Recommender Engine (Vector Search & Re-ranking)
+The final module is a high-performance recommendation system that matches a student's parsed resume against a live database of over 75,000 real-world job postings in milliseconds. It uses a two-stage retrieval and re-ranking pipeline.
+
+# Datasets Used:
+Kaggle => LinkedIn Job Postings 2023-2024 (Filtered to 75.4k tech-focused roles) [https://www.kaggle.com/datasets/asaniczka/1-3m-linkedin-jobs-and-skills-2024]
+
+## Architecture
+# Stage 1 (Retrieval): Uses SentenceTransformer (all-MiniLM-L6-v2) to encode jobs and resumes into 384-dimensional space. Candidates are retrieved instantly using a FAISS (FlatIP) vector index.
+
+# Stage 2 (Re-ranking): A heavily optimized XGBoost & LightGBM ensemble re-ranks the top 100 candidates based on explicit rules to ensure perfect alignment.
+
+# Feature Engineering (12 Dimensions):
+Includes Semantic Similarity Score, Exact Skill Overlap, Skill Match Ratio, Experience Level Constraints (Entry/Senior/Internship), Location Matching, and Semantic Title Similarity.
+
+# Performance (Test Set)
+* **NDCG@10:** 0.9853
+* **Precision@5:** 0.9818
+* **MRR:** 1.0000
+(Note: Achieves near-perfect ranking due to aggressive mathematical alignment on hard skills and experience levels).
+
 ## 🚀 How to Run Locally
 
 ### Step 1: Clone the Repository
@@ -86,13 +113,18 @@ Because the model artifacts contain large weight files (~400MB for BERT), they a
 
 2. Model 2 (Scorer): (https://drive.google.com/file/d/18UELix1nMT7TZO2pYKWLLNa0e-FVxuI9/view?usp=share_link)
 
-3. Extract both downloaded .zip files.
+3. Model 3 (Recommender): (https://drive.google.com/file/d/1R8JnAuoMLmbKN_X-aJXlZVJon2azL-Mb/view?usp=share_link)
 
-4. Place the resume_parser_model folder inside the model1_resume_parser/ directory.
+### Step 3: Extract and Organize
+1. Extract the downloaded .zip files.
 
-5. Place the resume_scorer_model folder inside the model2_resume_scorer/ directory.
+2. Place the contents of Model 1 inside the Model1_Resume_Parser/resume_parser_model/ directory.
 
-### Step 3: Environment Setup
+3. Place the contents of Model 2 inside the Model2_Resume_Scorer/resume_scorer_model/ directory.
+
+4. Place the contents of Model 3 inside the Model3_Job_Recommender/job_recommender_model/ directory.
+
+### Step 4: Environment Setup
 
 ## For the Parser (Model 1):
 ```bash
@@ -102,5 +134,10 @@ pip install -r requirements.txt
 ## For the Scorer (Model 2):
 ```bash
 cd ../Model2_Resume_Scorer
+pip install -r requirements.txt
+```
+## For the Recommender (Model 3): 
+```bash
+cd ../Model3_Job_Recommender
 pip install -r requirements.txt
 ```
