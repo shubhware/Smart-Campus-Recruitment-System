@@ -17,4 +17,8 @@ FINAL_resume_parser_model1/
 *.pkl
 *.index
 *.parquet
-FINAL_job_recommender_model3
+
+FINAL_resume_parser_model1/
+FINAL_resume_scorer_model2/
+FINAL_job_recommender_model3/
+FINAL_skill_gap_model4/

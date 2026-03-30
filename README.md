@@ -1,6 +1,6 @@
 # 🎓 Smart Campus Recruitment System
 
-An automated, AI-driven pipeline designed to streamline campus placements. This system parses unstructured PDF resumes into structured data using Deep Learning (NER), evaluates them against specific Job Descriptions to generate an actionable ATS score, and uses vector-based similarity search to recommend the most highly-relevant real-world job postings for the candidate.
+An automated, AI-driven pipeline designed to streamline campus placements and student upskilling. This system parses unstructured PDF resumes into structured data using Deep Learning (NER), evaluates them against specific Job Descriptions to generate an actionable ATS score, uses vector-based similarity search to recommend highly-relevant real-world job postings, and generates a personalized, week-by-week learning roadmap to bridge any skill gaps.
 
 ## 🏗️ Repository Structure
 
@@ -24,6 +24,12 @@ Smart-Campus-Recruitment-System/
 │   ├── job_recommender.py       # Inference wrapper
 │   ├── requirements.txt
 │   └── job_recommender_model3.ipynb 
+│
+├── Model4_Skill_Gap/
+│   ├── skill_gap_model/         # (Downloaded externally)
+│   ├── skill_gap_analyzer.py    # Production bridge
+│   ├── requirements.txt
+│   └── skill_gap_model4.ipynb 
 │
 ├── .gitignore
 └── README.md
@@ -102,6 +108,39 @@ Includes Semantic Similarity Score, Exact Skill Overlap, Skill Match Ratio, Expe
 * **MRR:** 1.0000
 (Note: Achieves near-perfect ranking due to aggressive mathematical alignment on hard skills and experience levels).
 
+---
+
+## Model 4: Skill Gap Analyzer & Learning Roadmap
+The final module consumes the outputs of Models 1, 2, and 3 to generate a comprehensive, prioritized upskilling roadmap. It identifies missing skills, calculates urgency based on market demand and historical trends, matches the best courses, and structures a week-by-week learning plan using dependency graphs.
+
+# Datasets Used:
+1. Kaggle => Stack Overflow Developer Survey (2020–2024) => https://www.kaggle.com/datasets/ijnskjet/2020-2024-stack-overflow-developer-survey
+
+2. Kaggle => Udemy Online Education Courses => https://www.kaggle.com/datasets/yusufdelikkaya/udemy-online-education-courses
+
+3. Kaggle => Coursera Courses & Skills 2024 => https://www.kaggle.com/datasets/azraimohamad/coursera-course-data
+
+4. Kaggle => 1.3M LinkedIn Jobs & Skills 2024 (Used in model-3) => https://www.kaggle.com/datasets/asaniczka/1-3m-linkedin-jobs-and-skills-2024
+
+## Architecture
+
+
+* **Trend Classifier (XGBoost/LightGBM):** Extracts YoY growth, momentum, and peak recency to classify skills as Rising, Stable, or Declining.
+
+* **Gap Priority Scorer (XGBoost Regressor):** Calculates a 0-100 urgency score per missing skill using role demand %, trend score, and gap severity.
+
+* **Course Matcher (TF-IDF):** Uses cosine similarity over a 6,000-feature matrix to recommend highly-rated free and paid courses.
+
+* **Roadmap Generator (NetworkX):** Uses a directed graph topological sort to ensure prerequisite skills (e.g., Python) are learned before advanced skills (e.g., PyTorch).
+
+## Performance (Test Set)
+
+* **Trend Classifier Accuracy:** ~94.44% (Macro-F1: ~0.87)
+
+* **Priority Scorer MAE:** ~1.22 (Meaning urgency scores are accurate within 1.2 points out of 100).
+
+---
+
 ## 🚀 How to Run Locally
 
 ### Step 1: Clone the Repository
@@ -118,6 +157,8 @@ Because the model artifacts contain large weight files (~400MB for BERT), they a
 
 3. Model 3 (Recommender): (https://drive.google.com/file/d/1R8JnAuoMLmbKN_X-aJXlZVJon2azL-Mb/view?usp=share_link)
 
+4. Model 4 (Skill Gap Analyzer): (https://drive.google.com/file/d/1XHorWcgtWbMwWGjJAMBaJci2M5Ct0Kme/view?usp=share_link)
+
 ### Step 3: Extract and Organize
 1. Extract the downloaded .zip files.
 
@@ -126,6 +167,8 @@ Because the model artifacts contain large weight files (~400MB for BERT), they a
 3. Place the contents of Model 2 inside the Model2_Resume_Scorer/resume_scorer_model/ directory.
 
 4. Place the contents of Model 3 inside the Model3_Job_Recommender/job_recommender_model/ directory.
+
+5. Place the contents of Model 4 inside the Model4_Skill_Gap/skill_gap_model/ directory.
 
 ### Step 4: Environment Setup
 
@@ -142,5 +185,10 @@ pip install -r requirements.txt
 ## For the Recommender (Model 3): 
 ```bash
 cd ../Model3_Job_Recommender
+pip install -r requirements.txt
+```
+## For the Skill Gap Analyzer (Model 4):
+```bash
+cd Model4_Skill_Gap
 pip install -r requirements.txt
 ```
