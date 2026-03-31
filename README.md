@@ -9,7 +9,7 @@ Smart-Campus-Recruitment-System/
 │
 ├── Model1_Resume_Parser/
 │   ├── resume_parser_model/     # (Downloaded externally due to size)
-│   ├── resume_parser.py         # Inference wrapper
+│   ├── resume_parser_v2.py         # Inference wrapper
 │   ├── requirements.txt         
 │   └── resume_parser_model1.ipynb 
 │
@@ -151,7 +151,7 @@ cd Smart-Campus-Recruitment-System
 ### Step 2: Download the Pre-Trained Weights
 Because the model artifacts contain large weight files (~400MB for BERT), they are hosted securely externally rather than on GitHub.
 
-1. Model 1 (Parser): (https://drive.google.com/file/d/1yhSuiCwkQmNn56UR6bEDx6-BjzNoqnNC/view?usp=share_link)
+1. Model 1 (Parser): (https://drive.google.com/file/d/1rnfCaCnslUgXjw8wtpgInNty_OKZTvcX/view?usp=share_link)
 
 2. Model 2 (Scorer): (https://drive.google.com/file/d/18UELix1nMT7TZO2pYKWLLNa0e-FVxuI9/view?usp=share_link)
 
